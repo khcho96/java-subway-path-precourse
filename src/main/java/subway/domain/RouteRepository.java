@@ -8,8 +8,10 @@ import org.jgrapht.graph.WeightedMultigraph;
 
 public class RouteRepository {
 
-    private static final WeightedMultigraph<Station, DefaultWeightedEdge> distanceGraph = new WeightedMultigraph(DefaultWeightedEdge.class);
-    private static final WeightedMultigraph<Station, DefaultWeightedEdge> timeGraph = new WeightedMultigraph(DefaultWeightedEdge.class);
+    private static final WeightedMultigraph<Station, DefaultWeightedEdge> distanceGraph = new WeightedMultigraph(
+            DefaultWeightedEdge.class);
+    private static final WeightedMultigraph<Station, DefaultWeightedEdge> timeGraph = new WeightedMultigraph(
+            DefaultWeightedEdge.class);
     private static final DijkstraShortestPath minDistancePath = new DijkstraShortestPath(distanceGraph);
     private static final DijkstraShortestPath minTimePath = new DijkstraShortestPath(timeGraph);
 
@@ -25,11 +27,24 @@ public class RouteRepository {
 
     public static Result getMinDistanceRoute(Station startStation, Station endStation) {
         List<Station> stations = minDistancePath.getPath(startStation, endStation).getVertexList();
+
         List<String> stationNames = stations.stream()
                 .map(station -> station.getName())
                 .collect(Collectors.toList());
         int misDistance = (int) minDistancePath.getPath(startStation, endStation).getWeight();
+        int timeSum = getTime(stations);
 
-        return new Result(stationNames, misDistance);
+        return new Result(stationNames, misDistance, timeSum);
+    }
+
+    private static int getTime(List<Station> stations) {
+        int timeSum = 0;
+        for (int i = 0; i < stations.size() - 1; i++) {
+            Station firstStation = stations.get(i);
+            Station secondStation = stations.get(i + 1);
+
+            timeSum += (int) minTimePath.getPath(firstStation, secondStation).getWeight();
+        }
+        return timeSum;
     }
 }

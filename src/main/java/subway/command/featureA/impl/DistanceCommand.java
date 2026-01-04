@@ -9,6 +9,7 @@ import subway.service.SubwayService;
 import subway.util.InputParser;
 import subway.util.Retry;
 import subway.view.InputView;
+import subway.view.OutputView;
 
 public class DistanceCommand implements Command {
 
@@ -36,6 +37,7 @@ public class DistanceCommand implements Command {
         });
 
         Result result = getResult(startStation, endStation);
+
     }
 
     private Result getResult(Station startStation, Station endStation) {

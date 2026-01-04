@@ -32,4 +32,8 @@ public class SubwayService {
     public Result calculateMinDistanceRoute(Station startStation, Station endStation) {
         return RouteRepository.getMinDistanceRoute(startStation, endStation);
     }
+
+    public Result calculateMinTimeRoute(Station startStation, Station endStation) {
+        return RouteRepository.getMinTimeRoute(startStation, endStation);
+    }
 }

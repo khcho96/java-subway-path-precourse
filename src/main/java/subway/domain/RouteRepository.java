@@ -29,7 +29,7 @@ public class RouteRepository {
         List<Station> stations = minDistancePath.getPath(startStation, endStation).getVertexList();
 
         List<String> stationNames = stations.stream()
-                .map(station -> station.getName())
+                .map(Station::getName)
                 .collect(Collectors.toList());
         int misDistance = (int) minDistancePath.getPath(startStation, endStation).getWeight();
         int timeSum = getTime(stations);
@@ -46,5 +46,28 @@ public class RouteRepository {
             timeSum += (int) minTimePath.getPath(firstStation, secondStation).getWeight();
         }
         return timeSum;
+    }
+
+    public static Result getMinTimeRoute(Station startStation, Station endStation) {
+        List<Station> stations = minTimePath.getPath(startStation, endStation).getVertexList();
+
+        List<String> stationNames = stations.stream()
+                .map(Station::getName)
+                .collect(Collectors.toList());
+        int distanceSum = getDistance(stations);
+        int minTime = (int) minTimePath.getPath(startStation, endStation).getWeight();
+
+        return new Result(stationNames, distanceSum, minTime);
+    }
+
+    private static int getDistance(List<Station> stations) {
+        int distanceSum = 0;
+        for (int i = 0; i < stations.size() - 1; i++) {
+            Station firstStation = stations.get(i);
+            Station secondStation = stations.get(i + 1);
+
+            distanceSum += (int) minDistancePath.getPath(firstStation, secondStation).getWeight();
+        }
+        return distanceSum;
     }
 }

@@ -43,6 +43,16 @@ class ApplicationTest extends NsTest {
         );
     }
 
+    @Test
+    void 출발역_도착역_동일_오류() {
+        assertSimpleTest(
+                () -> {
+                    runException("1", "1", "교대역", "교대역");
+                    assertThat(output()).contains(ErrorMessage.SAME_START_END_STATION.getErrorMessage());
+                }
+        );
+    }
+
     @ParameterizedTest
     @MethodSource("minDistanceResultProvider")
     void 최단거리_경로_구하기(String startStation, String endStation, int distance, int time) {
@@ -57,16 +67,16 @@ class ApplicationTest extends NsTest {
 
     static Stream<Arguments> minDistanceResultProvider() {
         return Stream.of(
-                Arguments.of("교대역",  "양재역", 4, 11),
-                Arguments.of("교대역",  "강남역", 2, 3),
-                Arguments.of("교대역",  "매봉역", 5, 12),
-                Arguments.of("교대역",  "양재시민의숲역", 14, 14),
-                Arguments.of("양재역",  "교대역", 4, 11),
-                Arguments.of("양재역",  "역삼역", 4, 11),
-                Arguments.of("양재역",  "남부터미널역", 6, 5),
-                Arguments.of("매봉역",  "역삼역", 5, 12),
-                Arguments.of("매봉역",  "강남역", 3, 9),
-                Arguments.of("강남역",  "남부터미널역", 5, 5)
+                Arguments.of("교대역", "양재역", 4, 11),
+                Arguments.of("교대역", "강남역", 2, 3),
+                Arguments.of("교대역", "매봉역", 5, 12),
+                Arguments.of("교대역", "양재시민의숲역", 14, 14),
+                Arguments.of("양재역", "교대역", 4, 11),
+                Arguments.of("양재역", "역삼역", 4, 11),
+                Arguments.of("양재역", "남부터미널역", 6, 5),
+                Arguments.of("매봉역", "역삼역", 5, 12),
+                Arguments.of("매봉역", "강남역", 3, 9),
+                Arguments.of("강남역", "남부터미널역", 5, 5)
         );
     }
 
@@ -84,16 +94,16 @@ class ApplicationTest extends NsTest {
 
     static Stream<Arguments> minTimeResultProvider() {
         return Stream.of(
-                Arguments.of("교대역",  "양재역", 9,7),
-                Arguments.of("교대역",  "강남역", 2, 3),
-                Arguments.of("교대역",  "매봉역", 10,8),
-                Arguments.of("교대역",  "양재시민의숲역", 19, 10),
-                Arguments.of("양재역",  "교대역", 9, 7),
-                Arguments.of("양재역",  "역삼역", 4, 11),
-                Arguments.of("양재역",  "남부터미널역", 6, 5),
-                Arguments.of("매봉역",  "역삼역", 5, 12),
-                Arguments.of("매봉역",  "강남역", 3, 9),
-                Arguments.of("강남역",  "남부터미널역", 5, 5)
+                Arguments.of("교대역", "양재역", 9, 7),
+                Arguments.of("교대역", "강남역", 2, 3),
+                Arguments.of("교대역", "매봉역", 10, 8),
+                Arguments.of("교대역", "양재시민의숲역", 19, 10),
+                Arguments.of("양재역", "교대역", 9, 7),
+                Arguments.of("양재역", "역삼역", 4, 11),
+                Arguments.of("양재역", "남부터미널역", 6, 5),
+                Arguments.of("매봉역", "역삼역", 5, 12),
+                Arguments.of("매봉역", "강남역", 3, 9),
+                Arguments.of("강남역", "남부터미널역", 5, 5)
         );
     }
 

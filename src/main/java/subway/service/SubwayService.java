@@ -1,6 +1,7 @@
 package subway.service;
 
 import java.util.List;
+import subway.domain.Result;
 import subway.domain.RouteRepository;
 import subway.domain.Station;
 import subway.domain.StationRepository;
@@ -26,5 +27,9 @@ public class SubwayService {
 
     public Station getStation(String station) {
         return StationRepository.getStation(station);
+    }
+
+    public Result calculateMinDistanceRoute(Station startStation, Station endStation) {
+        return RouteRepository.getMinDistanceRoute(startStation, endStation);
     }
 }

@@ -3,6 +3,7 @@ package subway.command.featureA.impl;
 import java.util.Scanner;
 import subway.command.Command;
 import subway.constant.ErrorMessage;
+import subway.domain.Result;
 import subway.domain.Station;
 import subway.service.SubwayService;
 import subway.util.InputParser;
@@ -33,5 +34,15 @@ public class DistanceCommand implements Command {
             }
             return service.getStation(stationName);
         });
+
+        Result result = getResult(startStation, endStation);
+    }
+
+    private Result getResult(Station startStation, Station endStation) {
+        try {
+            return service.calculateMinDistanceRoute(startStation, endStation);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException(ErrorMessage.NO_CONNECTED_STATIONS.getErrorMessage());
+        }
     }
 }

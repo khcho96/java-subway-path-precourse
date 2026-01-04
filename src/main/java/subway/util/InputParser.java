@@ -1,13 +1,9 @@
 package subway.util;
 
-import subway.command.featureA.QueryMenuOption;
+import subway.command.query.QueryMenuOption;
 import subway.command.main.MainMenuOption;
 
 public final class InputParser {
-
-    private static final String DELIMITER = ",";
-    private static final String FIRST_DELIMITER = ",";
-    private static final String SECOND_DELIMITER = "-";
 
     private InputParser() {
     }

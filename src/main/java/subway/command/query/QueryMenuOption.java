@@ -1,4 +1,4 @@
-package subway.command.featureA;
+package subway.command.query;
 
 import java.util.Arrays;
 import subway.constant.ErrorMessage;

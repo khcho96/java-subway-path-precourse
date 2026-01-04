@@ -1,10 +1,10 @@
-package subway.command.featureA;
+package subway.command.query;
 
 import java.util.EnumMap;
 import java.util.Scanner;
 import subway.command.Command;
-import subway.command.featureA.impl.DistanceCommand;
-import subway.command.featureA.impl.TimeCommand;
+import subway.command.query.impl.DistanceCommand;
+import subway.command.query.impl.TimeCommand;
 import subway.service.SubwayService;
 
 public class QueryMenuCommandRegistry {

@@ -2,8 +2,8 @@ package subway.command.main.impl;
 
 import java.util.Scanner;
 import subway.command.Command;
-import subway.command.featureA.QueryMenuCommandRegistry;
-import subway.command.featureA.QueryMenuOption;
+import subway.command.query.QueryMenuCommandRegistry;
+import subway.command.query.QueryMenuOption;
 import subway.util.InputParser;
 import subway.util.Retry;
 import subway.view.InputView;

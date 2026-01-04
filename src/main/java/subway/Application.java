@@ -2,7 +2,7 @@ package subway;
 
 import java.io.IOException;
 import java.util.Scanner;
-import subway.command.featureA.QueryMenuCommandRegistry;
+import subway.command.query.QueryMenuCommandRegistry;
 import subway.command.main.MainMenuCommandRegistry;
 import subway.controller.SubwayController;
 import subway.service.SubwayService;

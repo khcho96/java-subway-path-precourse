@@ -1,4 +1,4 @@
-package subway.command.featureA.impl;
+package subway.command.query.impl;
 
 import java.util.Scanner;
 import subway.command.Command;
@@ -23,22 +23,29 @@ public class TimeCommand implements Command {
 
     @Override
     public void execute() {
-        Station startStation = Retry.retryUntilSuccess(() -> {
+        Station startStation = getStartStation();
+        Station endStation = getEndStation(startStation);
+
+        Result result = getResult(startStation, endStation);
+
+        OutputView.printRoute(result);
+    }
+
+    private Station getStartStation() {
+        return Retry.retryUntilSuccess(() -> {
             String stationName = InputParser.parseStation(InputView.readStartStation(scanner));
             return service.getStation(stationName);
         });
+    }
 
-        Station endStation = Retry.retryUntilSuccess(() -> {
+    private Station getEndStation(Station startStation) {
+        return Retry.retryUntilSuccess(() -> {
             String stationName = InputParser.parseStation(InputView.readEndStation(scanner));
             if (startStation.equals(service.getStation(stationName))) {
                 throw new IllegalArgumentException(ErrorMessage.SAME_START_END_STATION.getErrorMessage());
             }
             return service.getStation(stationName);
         });
-
-        Result result = getResult(startStation, endStation);
-
-        OutputView.printRoute(result);
     }
 
     private Result getResult(Station startStation, Station endStation) {

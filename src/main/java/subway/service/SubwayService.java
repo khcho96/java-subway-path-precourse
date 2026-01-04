@@ -9,12 +9,19 @@ import subway.domain.StationRepository;
 public class SubwayService {
 
     public void setStations(List<String> stations, List<List<String>> stationPairs, List<List<Integer>> weightPairs) {
+        setStations(stations);
+        setRoutes(stationPairs, weightPairs);
+    }
+
+    private static void setStations(List<String> stations) {
         for (String stationName : stations) {
             Station station = Station.from(stationName);
             StationRepository.addStation(station);
             RouteRepository.addStation(station);
         }
+    }
 
+    private static void setRoutes(List<List<String>> stationPairs, List<List<Integer>> weightPairs) {
         for (int i = 0; i < stationPairs.size(); i++) {
             Station start = StationRepository.getStation(stationPairs.get(i).get(0));
             Station end = StationRepository.getStation(stationPairs.get(i).get(1));

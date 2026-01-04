@@ -38,6 +38,7 @@ public class DistanceCommand implements Command {
 
         Result result = getResult(startStation, endStation);
 
+        OutputView.printRoute(result);
     }
 
     private Result getResult(Station startStation, Station endStation) {

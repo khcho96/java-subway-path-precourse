@@ -17,8 +17,8 @@ public class QueryMenuCommandRegistry {
 
     public static QueryMenuCommandRegistry from(SubwayService service, Scanner scanner) {
         EnumMap<QueryMenuOption, Command> map = new EnumMap<>(QueryMenuOption.class);
-        map.put(QueryMenuOption.A, new DistanceCommand(service, scanner));
-        map.put(QueryMenuOption.B, new TimeCommand(service, scanner));
+        map.put(QueryMenuOption.DISTANCE, new DistanceCommand(service, scanner));
+        map.put(QueryMenuOption.TIME, new TimeCommand(service, scanner));
         return new QueryMenuCommandRegistry(map);
     }
 

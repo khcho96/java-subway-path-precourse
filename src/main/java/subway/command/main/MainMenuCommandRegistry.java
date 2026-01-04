@@ -16,7 +16,7 @@ public class MainMenuCommandRegistry {
 
     public static MainMenuCommandRegistry from(QueryMenuCommandRegistry queryRegistry, Scanner scanner) {
         EnumMap<MainMenuOption, Command> map = new EnumMap<>(MainMenuOption.class);
-        map.put(MainMenuOption.A, new QueryCommand(queryRegistry, scanner));
+        map.put(MainMenuOption.QUERY, new QueryCommand(queryRegistry, scanner));
         return new MainMenuCommandRegistry(map);
     }
 

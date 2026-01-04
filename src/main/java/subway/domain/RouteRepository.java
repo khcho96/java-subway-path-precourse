@@ -2,9 +2,11 @@ package subway.domain;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import org.jgrapht.GraphPath;
 import org.jgrapht.alg.shortestpath.DijkstraShortestPath;
 import org.jgrapht.graph.DefaultWeightedEdge;
 import org.jgrapht.graph.WeightedMultigraph;
+import subway.constant.ErrorMessage;
 
 public class RouteRepository {
 
@@ -26,8 +28,12 @@ public class RouteRepository {
     }
 
     public static Result getMinDistanceRoute(Station startStation, Station endStation) {
-        List<Station> stations = minDistancePath.getPath(startStation, endStation).getVertexList();
+        GraphPath path = minDistancePath.getPath(startStation, endStation);
+        if (path == null) {
+            throw new IllegalArgumentException(ErrorMessage.NO_CONNECTED_STATIONS.getErrorMessage());
+        }
 
+        List<Station> stations = path.getVertexList();
         List<String> stationNames = stations.stream()
                 .map(Station::getName)
                 .collect(Collectors.toList());
@@ -49,8 +55,12 @@ public class RouteRepository {
     }
 
     public static Result getMinTimeRoute(Station startStation, Station endStation) {
-        List<Station> stations = minTimePath.getPath(startStation, endStation).getVertexList();
+        GraphPath path = minTimePath.getPath(startStation, endStation);
+        if (path == null) {
+            throw new IllegalArgumentException(ErrorMessage.NO_CONNECTED_STATIONS.getErrorMessage());
+        }
 
+        List<Station> stations = path.getVertexList();
         List<String> stationNames = stations.stream()
                 .map(Station::getName)
                 .collect(Collectors.toList());

@@ -49,10 +49,6 @@ public class TimeCommand implements Command {
     }
 
     private Result getResult(Station startStation, Station endStation) {
-        try {
-            return service.calculateMinTimeRoute(startStation, endStation);
-        } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException(ErrorMessage.NO_CONNECTED_STATIONS.getErrorMessage());
-        }
+        return service.calculateMinTimeRoute(startStation, endStation);
     }
 }

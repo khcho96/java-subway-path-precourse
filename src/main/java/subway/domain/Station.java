@@ -22,6 +22,11 @@ public class Station {
         return Objects.equals(name, station.name);
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(name);
+    }
+
     public String getName() {
         return name;
     }

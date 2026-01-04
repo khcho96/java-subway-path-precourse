@@ -4,8 +4,8 @@ import java.util.Arrays;
 import subway.constant.ErrorMessage;
 
 public enum QueryMenuOption {
-    A("1"),
-    B("2"),
+    DISTANCE("1"),
+    TIME("2"),
     BACK("B");
 
     private final String command;

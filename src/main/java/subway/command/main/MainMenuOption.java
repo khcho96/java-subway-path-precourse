@@ -4,7 +4,7 @@ import java.util.Arrays;
 import subway.constant.ErrorMessage;
 
 public enum MainMenuOption {
-    A("1"),
+    QUERY("1"),
     QUIT("Q");
 
     private final String command;

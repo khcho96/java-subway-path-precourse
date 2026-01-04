@@ -7,6 +7,7 @@ import java.util.Scanner;
 import subway.command.main.MainMenuCommandRegistry;
 import subway.command.main.MainMenuOption;
 import subway.service.SubwayService;
+import subway.util.InputParser;
 import subway.util.Retry;
 import subway.view.InputView;
 
@@ -44,17 +45,16 @@ public class SubwayController {
                 Arrays.asList("강남역", "양재역"), Arrays.asList("양재역", "양재시민의숲역")
         );
         List<List<Integer>> weightPairs = Arrays.asList(
-                Arrays.asList(2,3), Arrays.asList(2,3),
-                Arrays.asList(3,2), Arrays.asList(6,5), Arrays.asList(1,1),
-                Arrays.asList(2,8), Arrays.asList(10,3)
+                Arrays.asList(2, 3), Arrays.asList(2, 3),
+                Arrays.asList(3, 2), Arrays.asList(6, 5), Arrays.asList(1, 1),
+                Arrays.asList(2, 8), Arrays.asList(10, 3)
         );
         service.setStations(stations, stationPairs, weightPairs);
     }
 
     private MainMenuOption readOption() {
-        return Retry.retryUntilSuccess(() -> {
-            String selection = InputView.readMainMenuSelection(scanner);
-            return MainMenuOption.from(selection);
-        });
+        return Retry.retryUntilSuccess(() ->
+                InputParser.parseMainMenuOption(InputView.readMainMenuSelection(scanner))
+        );
     }
 }

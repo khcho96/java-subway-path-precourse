@@ -3,7 +3,7 @@ package subway.domain;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
+import subway.constant.ErrorMessage;
 
 public class StationRepository {
     private static final List<Station> stations = new ArrayList<>();
@@ -16,8 +16,11 @@ public class StationRepository {
         stations.add(station);
     }
 
-    public static boolean deleteStation(String name) {
-        return stations.removeIf(station -> Objects.equals(station.getName(), name));
+    public static Station getStation(String stationName) {
+        return stations.stream()
+                .filter(station -> station.getName().equals(stationName))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException(ErrorMessage.NO_EXIST_STATION.getErrorMessage()));
     }
 
     public static void deleteAll() {

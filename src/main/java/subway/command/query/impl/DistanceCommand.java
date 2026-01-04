@@ -7,7 +7,6 @@ import subway.domain.Result;
 import subway.domain.Station;
 import subway.service.SubwayService;
 import subway.util.InputParser;
-import subway.util.Retry;
 import subway.view.InputView;
 import subway.view.OutputView;
 
@@ -32,20 +31,16 @@ public class DistanceCommand implements Command {
     }
 
     private Station getStartStation() {
-        return Retry.retryUntilSuccess(() -> {
-            String stationName = InputParser.parseStation(InputView.readStartStation(scanner));
-            return service.getStation(stationName);
-        });
+        String stationName = InputParser.parseStation(InputView.readStartStation(scanner));
+        return service.getStation(stationName);
     }
 
     private Station getEndStation(Station startStation) {
-        return Retry.retryUntilSuccess(() -> {
-            String stationName = InputParser.parseStation(InputView.readEndStation(scanner));
-            if (startStation.equals(service.getStation(stationName))) {
-                throw new IllegalArgumentException(ErrorMessage.SAME_START_END_STATION.getErrorMessage());
-            }
-            return service.getStation(stationName);
-        });
+        String stationName = InputParser.parseStation(InputView.readEndStation(scanner));
+        if (startStation.equals(service.getStation(stationName))) {
+            throw new IllegalArgumentException(ErrorMessage.SAME_START_END_STATION.getErrorMessage());
+        }
+        return service.getStation(stationName);
     }
 
     private Result getResult(Station startStation, Station endStation) {

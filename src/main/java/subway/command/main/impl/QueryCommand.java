@@ -20,18 +20,14 @@ public class QueryCommand implements Command {
 
     @Override
     public void execute() {
-        QueryMenuOption option = getOption();
+        Retry.retryUntilSuccess(() -> {
+            QueryMenuOption option = InputParser.parseQueryMenuOption(InputView.readQueryMenuSelection(scanner));
 
-        if (option.equals(QueryMenuOption.BACK)) {
-            return;
-        }
+            if (option.equals(QueryMenuOption.BACK)) {
+                return;
+            }
 
-        stationRegistry.execute(option);
-    }
-
-    private QueryMenuOption getOption() {
-        return Retry.retryUntilSuccess(() ->
-                InputParser.parseQueryMenuOption(InputView.readQueryMenuSelection(scanner))
-        );
+            stationRegistry.execute(option);
+        });
     }
 }

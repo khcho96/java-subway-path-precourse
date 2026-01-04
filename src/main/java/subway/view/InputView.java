@@ -23,8 +23,13 @@ public class InputView {
         return scanner.nextLine();
     }
 
-    public static String readStation(Scanner scanner) {
-        System.out.println("");
+    public static String readStartStation(Scanner scanner) {
+        System.out.println("\n## 출발역을 입력하세요.");
+        return scanner.nextLine();
+    }
+
+    public static String readEndStation(Scanner scanner) {
+        System.out.println("\n## 도착역을 입력하세요.");
         return scanner.nextLine();
     }
 }

@@ -2,7 +2,12 @@ package subway.command.featureA.impl;
 
 import java.util.Scanner;
 import subway.command.Command;
+import subway.constant.ErrorMessage;
+import subway.domain.Station;
 import subway.service.SubwayService;
+import subway.util.InputParser;
+import subway.util.Retry;
+import subway.view.InputView;
 
 public class DistanceCommand implements Command {
 
@@ -16,6 +21,17 @@ public class DistanceCommand implements Command {
 
     @Override
     public void execute() {
+        Station startStation = Retry.retryUntilSuccess(() -> {
+            String stationName = InputParser.parseStation(InputView.readStartStation(scanner));
+            return service.getStation(stationName);
+        });
 
+        Station endStation = Retry.retryUntilSuccess(() -> {
+            String stationName = InputParser.parseStation(InputView.readEndStation(scanner));
+            if (startStation.equals(service.getStation(stationName))) {
+                throw new IllegalArgumentException(ErrorMessage.SAME_START_END_STATION.getErrorMessage());
+            }
+            return service.getStation(stationName);
+        });
     }
 }

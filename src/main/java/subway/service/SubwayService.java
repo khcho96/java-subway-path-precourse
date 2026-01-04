@@ -23,4 +23,8 @@ public class SubwayService {
             RouteRepository.addRoute(start, end, distance, time);
         }
     }
+
+    public Station getStation(String station) {
+        return StationRepository.getStation(station);
+    }
 }
